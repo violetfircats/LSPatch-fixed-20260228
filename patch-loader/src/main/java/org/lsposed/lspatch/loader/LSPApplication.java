@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -86,13 +87,28 @@ public class LSPApplication {
         disableProfile(context);
         Startup.initXposed(false, ActivityThread.currentProcessName(), context.getApplicationInfo().dataDir, service);
         Startup.bootstrapXposed();
+        ensureAppClassLoaderInitialized();
         // WARN: Since it uses `XResource`, the following class should not be initialized
         // before forkPostCommon is invoke. Otherwise, you will get failure of XResources
+        boolean modulesInitialized = false;
         Log.i(TAG, "Load modules");
-        LSPLoader.initModules(appLoadedApk);
-        Log.i(TAG, "Modules initialized");
+        try {
+            LSPLoader.initModules(appLoadedApk);
+            modulesInitialized = true;
+            Log.i(TAG, "Modules initialized");
+        } catch (Throwable e) {
+            Log.e(TAG, "Module initialization failed before classloader switch", e);
+            logCauseChain("Module init root cause", e);
+        }
 
-        switchAllClassLoader();
+        if (modulesInitialized) {
+            switchAllClassLoader();
+        } else {
+            // Keep stub class loader untouched when module init failed.
+            // On some ROMs, switching class loader in this state can crash later with
+            // "class loader is not a PathClassLoader" during bindApplication.
+            Log.w(TAG, "Skip classloader switch due to module initialization failure");
+        }
         SigBypass.doSigBypass(context, config.optInt("sigBypassLevel"));
 
         Log.i(TAG, "LSPatch bootstrap completed");
@@ -237,6 +253,42 @@ public class LSPApplication {
                 var obj = XposedHelpers.getObjectField(appLoadedApk, field.getName());
                 XposedHelpers.setObjectField(stubLoadedApk, field.getName(), obj);
             }
+        }
+    }
+
+    private static void ensureAppClassLoaderInitialized() {
+        if (appLoadedApk == null) {
+            return;
+        }
+        try {
+            var current = appLoadedApk.getClassLoader();
+            Log.d(TAG, "App classloader before ensure: " + current);
+            Method target = null;
+            for (Method method : LoadedApk.class.getDeclaredMethods()) {
+                if (!"createOrUpdateClassLoaderLocked".equals(method.getName())) continue;
+                if (method.getParameterCount() > 1) continue;
+                target = method;
+                break;
+            }
+            if (target == null) {
+                return;
+            }
+            target.setAccessible(true);
+            if (target.getParameterCount() == 0) {
+                target.invoke(appLoadedApk);
+            } else {
+                target.invoke(appLoadedApk, new ArrayList<String>());
+            }
+            Log.d(TAG, "App classloader after ensure: " + appLoadedApk.getClassLoader());
+        } catch (Throwable e) {
+            Log.w(TAG, "Failed to ensure app classloader", e);
+        }
+    }
+
+    private static void logCauseChain(String prefix, Throwable throwable) {
+        int depth = 0;
+        for (var t = throwable; t != null && depth < 10; t = t.getCause(), depth++) {
+            Log.e(TAG, prefix + "[" + depth + "]: " + t.getClass().getName() + ": " + t.getMessage());
         }
     }
 }
