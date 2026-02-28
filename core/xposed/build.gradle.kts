@@ -13,7 +13,7 @@ android {
 
     sourceSets {
         named("main") {
-            java.srcDirs("src/main/kotlin", "libxposed/api/src/main/java")
+            java.srcDirs("src/main/kotlin", "src/main/java")
         }
     }
 }
