@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add">Добавить</string>
+    <string name="install">Установить</string>
+    <string name="installing">Установка</string>
+    <string name="uninstall">Удалить</string>
+    <string name="uninstalling">Удаление</string>
+    <string name="copy_error">Ошибка копирования</string>
+    <string name="apps">Приложения</string>
+    <string name="modules">Модули</string>
+    <string name="shizuku_available">Служба Shizuku доступна</string>
+    <string name="shizuku_unavailable">Служба Shizuku не подключена</string>
+    <string name="screen_repo">Репозиторий</string>
+    <string name="screen_logs">Журналы</string>
+    <string name="off">Выкл.</string>
+    <string name="error_unknown">Неизвестная ошибка</string>
+    <!-- Home Screen -->
+    <string name="home_shizuku_warning">Некоторые функции недоступны</string>
+    <string name="home_api_version">Версия API</string>
+    <string name="home_lspatch_version">Версия LSPatch</string>
+    <string name="home_framework_version">Версия framework</string>
+    <string name="home_system_version">Версия системы</string>
+    <string name="home_device">Устройство</string>
+    <string name="home_system_abi">Разрядность системы (ABI)</string>
+    <string name="home_info_copied">Скопировано в буфер обмена</string>
+    <string name="home_support">Поддержка</string>
+    <string name="home_description">LSPatch — это бесплатный без-рута-фреймворк Xposed, основанный на ядре LSPosed.</string>
+    <string name="home_view_source_code"><![CDATA[Посмотрите исходный код на %1$s<br/><br/>Заходите на наш %2$s-канал]]></string>
+    <!-- Manage Screen -->
+    <string name="screen_manage">Управление</string>
+    <string name="manage_loading">Загрузка</string>
+    <string name="manage_no_apps">Пропатченных приложений пока нет</string>
+    <string name="manage_rolling">Прокат</string>
+    <string name="manage_update_loader">Обновление загрузчика</string>
+    <string name="manage_update_loader_successfully">Успешное обновление</string>
+    <string name="manage_update_loader_failed">Ошибка обновления</string>
+    <string name="manage_module_scope">«Охват» модуля</string>
+    <string name="manage_optimize">Оптимизировать</string>
+    <string name="manage_optimize_successfully">Оптимизация завершена!</string>
+    <string name="manage_optimize_failed">Ошибка оптимизации</string>
+    <string name="manage_uninstall_successfully">Удаление завершено!</string>
+    <string name="manage_no_modules">Модулей пока нет</string>
+    <string name="manage_module_settings">Настройки модуля</string>
+    <string name="manage_app_info">Информация о приложении</string>
+    <!-- New Patch Screen -->
+    <string name="screen_new_patch">Новый патч</string>
+    <string name="patch_select_dir_title">Выбор каталога хранилища</string>
+    <string name="patch_select_dir_text">Выберите каталог для хранения пропатченных Apk</string>
+    <string name="patch_select_dir_error">Ошибка при настройке каталога хранилища</string>
+    <string name="patch_from_storage">Выберите .apk (один или несколько) из хранилища</string>
+    <string name="patch_from_applist">Выберите установленное приложение</string>
+    <string name="patch_mode">Режим патча</string>
+    <string name="patch_local">Локальный</string>
+    <string name="patch_local_desc">Патч приложения без встроенных модулей.\n«Охват» Xposed может быть изменён динамически без перепатчивания.\nЛокально пропатченные приложения могут работать только на локальном устройстве.</string>
+    <string name="patch_integrated">Интегрированный</string>
+    <string name="patch_integrated_desc">Патч приложения со встроенными модулями.\nПропатченное приложение может работать без менеджера, но не может управляться динамически.\nИнтегрированно пропатченные приложения могут быть использованы на устройствах и без установленного LSPatch Менеджера.</string>
+    <string name="patch_embed_modules">Встроенные модули</string>
+    <string name="patch_debuggable">Отладка</string>
+    <string name="patch_sigbypass">Обход подписи</string>
+    <string name="patch_sigbypasslv0">ур. 0: Выкл.</string>
+    <string name="patch_sigbypasslv1">ур. 1: Обход PM</string>
+    <string name="patch_sigbypasslv2">ур. 2: Обход PM + openat (libc)</string>
+    <string name="patch_override_version_code">Переопределение кода версии</string>
+    <string name="patch_override_version_code_desc">Переопределить код версии пропатченного приложения на 1.\nЭто позволит понижать версию установки и совершенно не повлияет на код версии, фактически воспринимаемый приложением.</string>
+    <string name="patch_start">Запустить патч</string>
+    <string name="patch_return">Вернуться</string>
+    <string name="patch_uninstall_text">Ввиду разницы в подписях вам необходимо удалить оригинальное приложение перед установкой пропатченного.\nУбедитесь, что у вас есть резервная копия личных данных.</string>
+    <string name="patch_install_successfully">Установка завершена</string>
+    <string name="patch_install_failed">Ошибка установки</string>
+    <string name="patch_no_xposed_module">Не найдено ни одного модуля Xposed</string>
+    <!-- Select Apps Screen -->
+    <string name="screen_select_apps">Выберите приложения</string>
+    <!-- Settings Screen -->
+    <string name="screen_settings">Настройки</string>
+    <string name="settings_keystore">Хранилище ключей подписи</string>
+    <string name="settings_keystore_default">Встроенное</string>
+    <string name="settings_keystore_custom">Пользовательское</string>
+    <string name="settings_keystore_dialog_title">Пользовательское хранилище ключей</string>
+    <string name="settings_keystore_file">Файл хранилища ключей</string>
+    <string name="settings_keystore_password">Пароль</string>
+    <string name="settings_keystore_alias">Alias (псевдоним)</string>
+    <string name="settings_keystore_alias_password">Alias-пароль</string>
+    <string name="settings_keystore_desc">Установка хранилища ключей (BKS)</string>
+    <string name="settings_keystore_wrong_keystore">Неправильный тип хранилища ключей</string>
+    <string name="settings_keystore_wrong_password">Неправильный пароль хранилища ключей</string>
+    <string name="settings_keystore_wrong_alias">Неправильное имя alias</string>
+    <string name="settings_keystore_wrong_alias_password">Неправильный alias-пароль</string>
+    <string name="settings_detail_patch_logs">Подробности журнала патча</string>
+    <string name="patch_inject_dex">Inject loader dex</string>
+    <string name="patch_inject_dex_desc">Для приложений с изолированными сервисами, такими как рендеринг браузеров, пожалуйста, включите эту опцию, чтобы убедиться, что они работают должным образом.</string>
+</resources>
